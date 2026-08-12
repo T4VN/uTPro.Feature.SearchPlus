@@ -22,7 +22,7 @@ Database support: **SQL Server**, **SQLite** and **PostgreSQL**.
 - **Diacritics-insensitive indexing** — the Examine ExternalIndex is automatically configured with an ASCII-folding analyzer so accented characters match their unaccented equivalents across all Latin-script languages (Vietnamese, French, Spanish, Portuguese, German, Turkish, Polish, Czech, Romanian, and more).
 - **Backoffice management UI** — create, edit, delete and test synonym groups from **Settings → uTPro Feature → Search Plus**. Includes real-time search/filter with diacritics-insensitive matching and pagination.
 - **Pre-loaded defaults** — 25 common Vietnamese–English synonym groups are seeded on first install.
-- **Automatic integration** — when used alongside `uTPro.Extension.Search`, synonym expansion is applied automatically at query time with no code changes.
+- **Automatic integration** — synonym expansion integrates directly with Umbraco's Examine search at query time with no code changes.
 - **REST API** — full CRUD + expansion test endpoints for automation and CI/CD pipelines.
 - **Database storage** — synonym data is stored in the Umbraco database (not files), supporting multi-instance / load-balanced deployments out of the box.
 - **Secure by default** — every endpoint requires access to the Settings section.
@@ -83,13 +83,7 @@ The **Search Plus** workspace provides:
 
 ## Custom integration
 
-### With uTPro.Extension.Search (automatic)
-
-If your site uses `uTPro.Extension.Search` (the built-in uTPro search service), synonym expansion is **automatic** — no code changes needed. The search service detects SearchPlus at runtime and expands queries before executing them.
-
-### With Umbraco's default Examine search (manual)
-
-If you use Examine directly (without uTPro.Extension.Search), inject `ISynonymProvider` and expand the query before passing it to Examine:
+Inject `ISynonymProvider` and expand the query before passing it to Umbraco's Examine searcher:
 
 ```csharp
 using Examine;
@@ -137,7 +131,7 @@ public class SearchController : Controller
 ### Key points
 
 - `ISynonymProvider.Expand(term)` handles diacritics-insensitive lookup internally — passing "cong ty" will match the "công ty" group and return all synonyms.
-- The diacritics-insensitive analyzer is applied to the ExternalIndex automatically on startup (via `DiacriticsInsensitiveIndexOptions`). No manual Examine configuration is needed.
+- The diacritics-insensitive analyzer is applied to the ExternalIndex automatically on startup. No manual Examine configuration is needed.
 - After installing, **rebuild the External Index** from Examine Management so the new analyzer processes existing content.
 - If SearchPlus is uninstalled, the Examine index reverts to Umbraco's default analyzer on next rebuild.
 
@@ -170,8 +164,7 @@ On first startup, a state-keyed migration creates two tables:
 | `uTProSynonymTerm` | Individual terms within a group (GroupId, Term, SortOrder) |
 
 Data access uses NPoco strongly-typed queries with provider-quoted identifiers, so it runs on
-**SQL Server, SQLite and PostgreSQL** — the same cross-database approach used by
-`uTPro.Feature.SimpleFormBuilder` and `uTPro.Feature.JobMonitor`.
+**SQL Server, SQLite and PostgreSQL**.
 
 ---
 
@@ -183,7 +176,7 @@ Data access uses NPoco strongly-typed queries with provider-quoted identifiers, 
 | [How It Works](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/how-it-works.md) | Diacritics folding, synonym expansion flow, supported languages |
 | [Synonym Management](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/synonym-management.md) | How to create, edit, delete and test groups |
 | [Diacritics Support](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/diacritics.md) | How the ASCII-folding analyzer works, supported languages |
-| [Integration](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/integration.md) | Using ISynonymProvider in custom code, automatic integration with uTPro.Extension.Search |
+| [Integration](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/integration.md) | Using ISynonymProvider in custom code, integrating with Umbraco Examine |
 | [API Reference](https://github.com/T4VN/uTPro.Feature.SearchPlus/blob/main/docs/api-reference.md) | Full REST API documentation |
 
 ---
