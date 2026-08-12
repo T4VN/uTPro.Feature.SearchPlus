@@ -1,0 +1,19 @@
+﻿{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "Category": "Developer Tools",
+  "Title": "uTPro Search Plus",
+  "Description": "Enhance Umbraco site search with synonym expansion and diacritics-insensitive matching, managed from the backoffice. Users searching 'laptop' will also find content containing 'may tinh', 'pc', or 'computer'. Users searching without accents ('cong ty') will find 'cong ty'. Includes a backoffice UI under Settings for creating, editing and testing synonym groups. 25 common Vietnamese-English synonym groups are pre-loaded. Stores data in the Umbraco database (SQL Server, SQLite, PostgreSQL). Integrates automatically with uTPro.Extension.Search for zero-config query expansion. Also exposes an authenticated REST API for synonym CRUD and expansion testing.",
+  "AuthorDetails": {
+    "Name": "T4VN",
+    "Url": "https://t4vn.com",
+    "ImageUrl": "https://github.com/t4vn.png",
+    "SyncContributorsFromRepository": true
+  },
+  "LicenseTypes": ["Free"],
+  "Tags": ["search", "synonyms", "query expansion", "diacritics", "vietnamese", "multilingual", "ascii folding", "examine", "lucene", "full-text search"],
+  "LookingForContributors": true,
+  "PackageType": "Package",
+  "DocumentationUrl": "https://github.com/T4VN/uTPro.Feature.SearchPlus",
+  "IssueTrackerUrl": "https://github.com/T4VN/uTPro.Feature.SearchPlus/issues",
+  "Screenshots": []
+}
