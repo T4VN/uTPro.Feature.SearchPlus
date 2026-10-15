@@ -1,3 +1,5 @@
+> **Rendered documentation:** [docs.utpro.dev](https://docs.utpro.dev/uTPro.Feature.SearchPlus/) is the canonical, always-current home of this page.
+
 # Getting Started
 
 ## Installation
@@ -18,18 +20,18 @@ Or via the NuGet Package Manager in Visual Studio, search for `uTPro.Feature.Sea
 
 After installing and restarting Umbraco, the package automatically:
 
-1. **Creates database tables** — `uTProSynonymGroup` and `uTProSynonymTerm` (migration runs once)
-2. **Seeds default data** — 25 common Vietnamese–English synonym groups are inserted
-3. **Configures the Examine index** — the ExternalIndex analyzer is replaced with one that folds diacritics to ASCII
-4. **Registers the backoffice UI** — a "Search Plus" workspace appears under **Settings → uTPro Feature**
+1. **Creates database tables** â€” `uTProSynonymGroup` and `uTProSynonymTerm` (migration runs once)
+2. **Seeds default data** â€” 25 common Vietnameseâ€“English synonym groups are inserted
+3. **Configures the Examine index** â€” the ExternalIndex analyzer is replaced with one that folds diacritics to ASCII
+4. **Registers the backoffice UI** â€” a "Search Plus" workspace appears under **Settings â†’ uTPro Feature**
 
 ## First-time setup
 
 After the first startup completes:
 
-1. Go to **Settings → Examine Management** in the Umbraco backoffice
+1. Go to **Settings â†’ Examine Management** in the Umbraco backoffice
 2. Find the **External** index
-3. Click **Rebuild** — this re-processes all existing content with the new diacritics-insensitive analyzer
+3. Click **Rebuild** â€” this re-processes all existing content with the new diacritics-insensitive analyzer
 
 This step is only needed once. Future content publishes are automatically indexed with the new analyzer.
 
@@ -40,11 +42,11 @@ Navigate to **Settings** in the left sidebar. Scroll down to the **uTPro Feature
 ## Verifying it works
 
 1. In the Search Plus workspace, type "laptop" in the search bar
-2. You should see it expand to: máy tính, laptop, pc, computer, notebook
-3. Type "cong ty" (without accents) — it should match the "công ty" group
+2. You should see it expand to: mÃ¡y tÃ­nh, laptop, pc, computer, notebook
+3. Type "cong ty" (without accents) â€” it should match the "cÃ´ng ty" group
 
 ## Next steps
 
-- [Synonym Management](synonym-management.md) — creating and managing synonym groups
-- [How It Works](how-it-works.md) — understand the indexing and query flow
-- [Integration](integration.md) — connecting to your site's search
+- [Synonym Management](synonym-management.md) â€” creating and managing synonym groups
+- [How It Works](how-it-works.md) â€” understand the indexing and query flow
+- [Integration](integration.md) â€” connecting to your site's search

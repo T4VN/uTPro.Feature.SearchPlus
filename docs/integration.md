@@ -1,8 +1,10 @@
+> **Rendered documentation:** [docs.utpro.dev](https://docs.utpro.dev/uTPro.Feature.SearchPlus/) is the canonical, always-current home of this page.
+
 # Integration
 
 ## Overview
 
-Search Plus provides `ISynonymProvider` — inject it into your controllers or views to expand search queries with synonyms before passing them to Umbraco's Examine.
+Search Plus provides `ISynonymProvider` â€” inject it into your controllers or views to expand search queries with synonyms before passing them to Umbraco's Examine.
 
 ## Controller example
 
@@ -115,11 +117,11 @@ public class SearchService
 ## How expansion works
 
 1. `Expand(term)` first tries an exact match (case-insensitive)
-2. If not found, it folds diacritics and tries again ("cong ty" → matches "công ty" group)
+2. If not found, it folds diacritics and tries again ("cong ty" â†’ matches "cÃ´ng ty" group)
 3. Returns all terms in the matched group, or just the original term if no match
 
 ## Notes
 
-- Synonym expansion is applied at **query time only** — no index rebuild needed when synonyms change
-- The diacritics analyzer is applied at **index time** — rebuild once after first install
+- Synonym expansion is applied at **query time only** â€” no index rebuild needed when synonyms change
+- The diacritics analyzer is applied at **index time** â€” rebuild once after first install
 - `ISynonymProvider` is registered as `Scoped` in DI

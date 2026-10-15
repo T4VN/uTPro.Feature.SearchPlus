@@ -13,7 +13,7 @@
   "Tags": ["search", "synonyms", "query expansion", "diacritics", "vietnamese", "multilingual", "ascii folding", "examine", "lucene", "full-text search"],
   "LookingForContributors": true,
   "PackageType": "Package",
-  "DocumentationUrl": "https://github.com/T4VN/uTPro.Feature.SearchPlus",
+  "DocumentationUrl": "https://docs.utpro.dev/uTPro.Feature.SearchPlus/",
   "IssueTrackerUrl": "https://github.com/T4VN/uTPro.Feature.SearchPlus/issues",
   "Screenshots": []
 }

@@ -1,5 +1,7 @@
 # uTPro Search Plus for Umbraco
 
+**Documentation:** <https://docs.utpro.dev/uTPro.Feature.SearchPlus/>
+
 Enhance site search with **synonym expansion** and **diacritics-insensitive matching** — managed
 directly from the Umbraco backoffice. Users searching "laptop" will also find content containing
 "máy tính", "pc", or "computer". Users searching without accents ("cong ty") will find "công ty".
@@ -151,6 +153,8 @@ Base path: `/umbraco/management/api/v1/utpro/search-plus/synonyms`
 | DELETE | `/{id}` | Delete a group |
 | GET | `/expand?term=...` | Test synonym expansion |
 | GET | `/suggest?term=...` | Get suggested groups (partial match) |
+| GET | `/export` | Export all groups as CSV (`terms` column, `\|`-joined) |
+| POST | `/import` | Import groups from CSV (`mode=merge\|replace`) |
 
 ---
 

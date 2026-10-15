@@ -1,3 +1,5 @@
+> **Rendered documentation:** [docs.utpro.dev](https://docs.utpro.dev/uTPro.Feature.SearchPlus/) is the canonical, always-current home of this page.
+
 # API Reference
 
 All endpoints are authenticated and require **Settings section access** in the Umbraco backoffice.
@@ -18,11 +20,11 @@ GET /umbraco/management/api/v1/utpro/search-plus/synonyms
 [
   {
     "id": "a1b2c3d4-0001-4000-8000-000000000001",
-    "terms": ["máy tính", "laptop", "pc", "computer", "notebook"]
+    "terms": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer", "notebook"]
   },
   {
     "id": "a1b2c3d4-0001-4000-8000-000000000002",
-    "terms": ["điện thoại", "smartphone", "mobile", "phone", "di động"]
+    "terms": ["Ä‘iá»‡n thoáº¡i", "smartphone", "mobile", "phone", "di Ä‘á»™ng"]
   }
 ]
 ```
@@ -36,7 +38,7 @@ POST /umbraco/management/api/v1/utpro/search-plus/synonyms
 Content-Type: application/json
 
 {
-  "terms": ["máy tính", "laptop", "pc", "computer"]
+  "terms": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer"]
 }
 ```
 
@@ -45,7 +47,7 @@ Content-Type: application/json
 ```json
 {
   "id": "generated-guid",
-  "terms": ["máy tính", "laptop", "pc", "computer"]
+  "terms": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer"]
 }
 ```
 
@@ -60,7 +62,7 @@ PUT /umbraco/management/api/v1/utpro/search-plus/synonyms/{id}
 Content-Type: application/json
 
 {
-  "terms": ["máy tính", "laptop", "pc", "computer", "notebook"]
+  "terms": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer", "notebook"]
 }
 ```
 
@@ -89,7 +91,7 @@ GET /umbraco/management/api/v1/utpro/search-plus/synonyms/expand?term=laptop
 ```json
 {
   "term": "laptop",
-  "expanded": ["máy tính", "laptop", "pc", "computer", "notebook"]
+  "expanded": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer", "notebook"]
 }
 ```
 
@@ -102,7 +104,7 @@ If no synonyms are found, returns the original term:
 }
 ```
 
-The expansion is **diacritics-insensitive**: `?term=cong ty` will match the "công ty" group.
+The expansion is **diacritics-insensitive**: `?term=cong ty` will match the "cÃ´ng ty" group.
 
 ---
 
@@ -118,11 +120,11 @@ GET /umbraco/management/api/v1/utpro/search-plus/synonyms/suggest?term=may
 [
   {
     "id": "a1b2c3d4-0001-4000-8000-000000000001",
-    "terms": ["máy tính", "laptop", "pc", "computer", "notebook"]
+    "terms": ["mÃ¡y tÃ­nh", "laptop", "pc", "computer", "notebook"]
   },
   {
     "id": "a1b2c3d4-0001-4000-8000-000000000003",
-    "terms": ["máy tính bảng", "tablet", "ipad"]
+    "terms": ["mÃ¡y tÃ­nh báº£ng", "tablet", "ipad"]
   }
 ]
 ```
@@ -131,9 +133,53 @@ Returns groups where any term partially contains the query (diacritics-insensiti
 
 ---
 
+## Export synonyms (CSV)
+
+```
+GET /umbraco/management/api/v1/utpro/search-plus/synonyms/export
+```
+
+**Response:** `200 OK` â€” `text/csv` file (`search-plus-synonyms.csv`, UTF-8 with BOM so Excel renders diacritics correctly).
+
+Each row is one synonym group; terms are joined with `|` so commas inside terms never collide with the CSV delimiter:
+
+```csv
+terms
+"mÃ¡y tÃ­nh|laptop|pc|computer"
+"cÃ´ng ty|company|firm"
+```
+
+---
+
+## Import synonyms (CSV)
+
+```
+POST /umbraco/management/api/v1/utpro/search-plus/synonyms/import
+Content-Type: multipart/form-data
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `file` | file | CSV file, one synonym group per row â€” terms separated by `\|` (a quoted comma-separated cell is also accepted). Max 2 MB. |
+| `mode` | string | `merge` (default) keeps existing groups and skips duplicates; `replace` deletes **all** existing groups before importing. |
+
+**Response:** `200 OK`
+
+```json
+{
+  "imported": 12,
+  "skippedDuplicates": 3,
+  "invalidRows": 1
+}
+```
+
+Duplicate detection is diacritics-insensitive: a file row "cong ty|company" is skipped when the database already has "cÃ´ng ty|company". Rows with fewer than 2 distinct terms count as invalid.
+
+---
+
 ## Authentication
 
-All endpoints require a valid Umbraco backoffice authentication token. The API is scoped to the **Settings section** — users must have Settings access to call these endpoints.
+All endpoints require a valid Umbraco backoffice authentication token. The API is scoped to the **Settings section** â€” users must have Settings access to call these endpoints.
 
 Use the standard Umbraco Management API authentication flow (Bearer token from `/umbraco/management/api/v1/security/back-office/authorize`).
 
